@@ -17,3 +17,13 @@ variable "vpc_cidr" {
   type        = string
   description = "VPC CIDR block."
 }
+
+variable "supported_internet_azs" {
+  type        = list(string)
+  description = "List of supported AZs for the VPC."
+}
+
+variable "supported_internal_azs" {
+  type        = list(string)
+  description = "List of supported AZs for the VPC."
+}
