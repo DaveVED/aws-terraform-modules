@@ -1,4 +1,4 @@
-# aws-terraform-modules
+# AWS VPC Terraform module
 Terraform module which creates a guardrailed (but configurabole) VPC setup on AWS.
 
 ## Usage

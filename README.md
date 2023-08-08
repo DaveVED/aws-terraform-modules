@@ -1,5 +1,5 @@
-# aws-terraform-modules
-Collection of guard railed Terraform modules support AWS deployments.
+# AWS Terraform Modules
+Collection of guard railed Terraform modules supporting AWS deployments.
 
 ## Support
 
