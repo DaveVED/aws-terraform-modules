@@ -20,11 +20,13 @@ variable "vpc_cidr" {
 
 variable "supported_internet_azs" {
   type        = list(string)
+  default     = []
   description = "List of supported AZs for the VPC."
 }
 
 variable "supported_internal_azs" {
   type        = list(string)
+  default     = []
   description = "List of supported AZs for the VPC."
 }
 
