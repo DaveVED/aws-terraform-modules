@@ -46,7 +46,7 @@ resource "aws_route_table" "internet_table" {
     delete = "10m"
   }
 
-  tags = merge({ "Name" = "${var.project}-${var.environment}-internet-rtb${count.index + 1}-${element(var.supported_azs, count.index)}" }, var.default_tags)
+  tags = merge({ "Name" = "${var.project}-${var.environment}-internet-rtb${count.index + 1}-${element(var.supported_internet_azs, count.index)}" }, var.default_tags)
 }
 
 resource "aws_route" "route" {
