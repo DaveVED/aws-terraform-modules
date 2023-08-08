@@ -1,5 +1,5 @@
 resource "aws_eip" "nat" {
-  tags = merge({ "Name" = "${var.project}-${var.environment}-nat-eip${count.index + 1}" }, var.default_tags)
+  tags = merge({ "Name" = "${var.project}-${var.environment}-nat-eip" }, var.default_tags)
 }
 
 resource "aws_nat_gateway" "nat" {
