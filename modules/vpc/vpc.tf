@@ -68,18 +68,6 @@ resource "aws_route_table_association" "association" {
   depends_on = [aws_route_table.internet_table]
 }
 
-resource "aws_route_table" "internal_table" {
-  vpc_id = aws_vpc.vpc.id
-
-  timeouts {
-    create = "10m"
-    update = "10m"
-    delete = "10m"
-  }
-
-  tags = merge({ "Name" = "${var.project}-${var.environment}-internal-rtb" }, var.default_tags)
-}
-
 ##################
 # Internal Routes
 ##################
