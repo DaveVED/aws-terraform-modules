@@ -3,4 +3,4 @@ Collection of Terraform modules support AWS deployments.
 
 ## Support
 
-- [ ] VPC
+- [x] VPC - A generic secure VPC setup.
