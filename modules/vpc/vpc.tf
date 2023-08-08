@@ -1,6 +1,6 @@
-##########
+##################
 # VPC
-##########
+##################
 resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
@@ -9,9 +9,9 @@ resource "aws_vpc" "vpc" {
   tags = merge({ "Name" = "${var.project}-${var.environment}-vpc" }, var.default_tags)
 }
 
-##########
+##################
 # Subnets
-##########
+##################
 resource "aws_subnet" "internet_subnets" {
   count = local.num_internet_subnets
 
@@ -30,4 +30,40 @@ resource "aws_subnet" "internal_subnets" {
   cidr_block        = cidrsubnet(var.vpc_cidr, local.subnet_breakup, local.num_internet_subnets + count.index)
 
   tags = merge({ "Name" = "${var.project}-${var.environment}-internal-subnet${count.index + 1}-${element(var.supported_internal_azs, count.index)}" }, var.default_tags)
+}
+
+##################
+# Internet Routes
+##################
+resource "aws_route_table" "internet_table" {
+  count = local.num_internet_subnets
+
+  vpc_id = aws_vpc.vpc.id
+
+  timeouts {
+    create = "10m"
+    update = "10m"
+    delete = "10m"
+  }
+
+  tags = merge({ "Name" = "${var.project}-${var.environment}-internet-rtb${count.index + 1}-${element(var.supported_azs, count.index)}" }, var.default_tags)
+}
+
+resource "aws_route" "route" {
+  count = local.num_internet_subnets
+
+  route_table_id         = element(aws_route_table.internet_table[*].id, count.index)
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.igw.id
+
+  depends_on = [aws_route_table.internet_table]
+}
+
+resource "aws_route_table_association" "association" {
+  count = local.num_internet_subnets
+
+  subnet_id      = element(aws_subnet.internet_subnets[*].id, count.index)
+  route_table_id = element(aws_route_table.internet_table[*].id, count.index)
+
+  depends_on = [aws_route_table.internet_table]
 }
