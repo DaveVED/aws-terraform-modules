@@ -37,20 +37,12 @@ variable "read_capacity" {
   type        = number
   description = "Number of read units for DynamoDb table."
   default     = null
-  validation {
-    condition     = var.billing_mode == "PROVISIONED" && var.read_capacity == null
-    error_message = "If you are using 'PROVISIONED' billing mode, you must provide a read capacity"
-  }
 }
 
 variable "write_capacity" {
   type        = number
   description = "Number of write units for this table.."
   default     = null
-  validation {
-    condition     = var.billing_mode == "PROVISIONED" && var.write_capacity == null
-    error_message = "If you are using 'PROVISIONED' billing mode, you must provide a write capacity"
-  }
 }
 
 variable "hash_key" {
