@@ -2,7 +2,7 @@ resource "aws_lb_target_group" "target_group" {
   for_each = { for tg in var.target_groups : "${tg.port}-${tg.health_check.path}" => tg }
 
   # Derive a name from the target group's properties for idempotency
-  name        = "${var.project}-${var.environment}-${var.alb_name}-${each.key}"
+  name = "${var.project}-${var.environment}-${var.alb_name}-${replace(each.key, "/[^a-zA-Z0-9-]/", "-")}"
   port        = each.value.port
   protocol    = "HTTP"
   target_type = "ip"
