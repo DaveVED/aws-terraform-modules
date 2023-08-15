@@ -5,9 +5,8 @@ variable "task_definition_arns" {
 }
 
 variable "load_balancer_target_group_arns" {
-  description = "A map of target group identifiers to their ARNs for attaching to the ECS services."
-  type        = map(string)
-  default     = {}
+  description = "The ARN of the target group for the ALB."
+  type        = string
 }
 
 variable "cluster_id" {
