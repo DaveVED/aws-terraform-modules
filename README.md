@@ -1,4 +1,16 @@
 # AWS Terraform Modules
-Collection of guard railed Terraform modules supporting AWS deployments. 
 
-The purpose of these modules is to not give complete flexiablity, or provison a single resource. Instead the the moudles should serve the purpose of not only provsiong resrouces, but should proivde default configs, to follow aws best pratice, enable guard rails, and provison supporting resrouces to meet these needs. For example the ECS cluster module not only gives you a cluster, but provides cloudwatch logging plus kms encryption.
+Collection of reusable terraform modules. The modules are not meant to give you complete flexibility but instead provide you with required resources (and supporting resources) to deploy the module.
+
+Each module can be used in isolation or together with each other. If leveraged together modules from this repository should allow you to create a complete three tier application in AWS with networking, data store, compute, etc...
+
+## Current Support
+Right now there is supporting for the following modules. More details on what each one does can be found in that modules respective `README.md`
+
+- [] VPC - Create a stable AWS networking configuration.
+- [] DynamoDb - Create a standarized DynamoDb table/configuration.
+- [] ECS -
+    - [] Cluster
+    - [] Task Defintion
+    - [] Service
+    - [] ALB
