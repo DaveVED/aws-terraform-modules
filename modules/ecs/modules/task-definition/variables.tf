@@ -6,12 +6,12 @@ variable "task_definitions" {
     network_mode      : string
     memory            : string
     cpu               : string
-    essential         : string
     execution_role_arn: string
     task_role_arn     : string
     container_definitions: list(object({
       name                : string
       image               : string
+      essential           : string
       cpu                 : number
       memory              : number
       essential           : bool
