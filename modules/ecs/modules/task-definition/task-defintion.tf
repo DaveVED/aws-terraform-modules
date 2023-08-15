@@ -3,7 +3,7 @@ resource "aws_ecs_task_definition" "ecs" {
   container_definitions = jsonencode([
     {
       name      = var.task_definition.family
-      image     = var.task_defintion.ecr_iamge
+      image     = var.task_definition.ecr_iamge
       cpu       = var.task_definition.cpu
       memory    = var.task_definition.memory
       essential = var.task_definition.essential
