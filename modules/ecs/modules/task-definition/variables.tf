@@ -11,7 +11,6 @@ variable "task_definitions" {
     container_definitions: list(object({
       name                : string
       image               : string
-      essential           : string
       cpu                 : number
       memory              : number
       essential           : bool
@@ -24,6 +23,6 @@ variable "task_definitions" {
       command             : list(string)
     }))
   }))
-  
+
   default = {}
 }
