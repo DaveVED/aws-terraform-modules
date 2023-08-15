@@ -30,3 +30,15 @@ variable "security_group_ids" {
   description = "A list of security group IDs for the network configuration of the ECS service."
   type        = list(string)
 }
+
+variable "container_names" {
+  description = "A map of task definition family to its container name for the load balancer configuration in the ECS services."
+  type        = map(string)
+  default     = {}
+}
+
+variable "container_ports" {
+  description = "A map of task definition family to its container port for the load balancer configuration in the ECS services."
+  type        = map(number)
+  default     = {}
+}
