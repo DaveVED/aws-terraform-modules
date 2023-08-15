@@ -8,7 +8,7 @@ resource "aws_ecs_service" "ecs_alb" {
   desired_count   = var.desired_task_count
 
   load_balancer {
-    target_group_arn = var.load_balancer_target_group_arns
+    target_group_arn = var.load_balancer_target_group_arn
     container_name   = var.container_name
     container_port   = var.container_port
   }

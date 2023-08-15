@@ -4,7 +4,7 @@ variable "task_definition_arns" {
   default     = {}
 }
 
-variable "load_balancer_target_group_arns" {
+variable "load_balancer_target_group_arn" {
   description = "The ARN of the target group for the ALB."
   type        = string
 }
