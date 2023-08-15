@@ -1,40 +1,38 @@
 resource "aws_ecs_task_definition" "ecs" {
-  family = var.task_definition.family
-  container_definitions = jsonencode([
-    {
-      name      = var.task_definition.family
-      image     = var.task_definition.ecr_iamge
-      cpu       = var.task_definition.cpu
-      memory    = var.task_definition.memory
-      essential = var.task_definition.essential
-      portMappings = [
-        {
-          containerPort = var.task_definition.port
-          hostPort      = var.task_definition.port
-        }
-      ],
-      logConfiguration = {
-        logDriver = "awslogs"
-        options = {
-          "awslogs-group"         = aws_cloudwatch_log_group.ecs.name
-          "awslogs-region"        = data.aws_region.current.name
-          "awslogs-stream-prefix" = "streaming"
-        }
-      }
-      healthCheck = {
-        retries     = var.task_definition.healthCheck_retries
-        interval    = var.task_definition.healthCheck_interval
-        timeout     = var.task_definition.healthcheck_timeout
-        startPeriod = var.task_definition.healthcheck_startperiod
-        command     = ["CMD-SHELL", "echo hello"]
-      }
-    },
-  ])
+  for_each = var.task_definitions
 
+  family                   = each.value.family
   requires_compatibilities = ["FARGATE"]
-  network_mode             = var.task_definition.network_mode
-  memory                   = var.task_definition.memory
-  cpu                      = var.task_definition.cpu
-  execution_role_arn       = var.task_definition.execution_role
-  task_role_arn            = var.task_definition.task_role
+  network_mode             = each.value.network_mode
+  memory                   = each.value.memory
+  cpu                      = each.value.cpu
+  execution_role_arn       = each.value.execution_role_arn
+  task_role_arn            = each.value.task_role_arn
+
+  container_definitions = jsonencode([for cd in each.value.container_definitions : {
+    name      = cd.name
+    image     = cd.image
+    cpu       = cd.cpu
+    memory    = cd.memory
+    essential = cd.essential
+    portMappings = [{
+      containerPort = cd.port
+      hostPort      = cd.port
+    }]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        "awslogs-group"         = aws_cloudwatch_log_group.ecs.name
+        "awslogs-region"        = data.aws_region.current.name
+        "awslogs-stream-prefix" = "streaming"
+      }
+    }
+    healthCheck = {
+      retries     = cd.healthCheck_retries
+      interval    = cd.healthCheck_interval
+      timeout     = cd.healthcheck_timeout
+      startPeriod = cd.healthcheck_startperiod
+      command     = cd.command
+    }
+  }])
 }
