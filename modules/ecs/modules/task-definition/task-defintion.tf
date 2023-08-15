@@ -17,8 +17,8 @@ resource "aws_ecs_task_definition" "ecs" {
     memory    = cd.memory
     essential = cd.essential
     portMappings = [{
-      containerPort = cd.port
-      hostPort      = cd.port
+      containerPort = cd.containerPort
+      hostPort      = cd.hostPort
     }]
     logConfiguration = {
       logDriver = "awslogs"

@@ -15,7 +15,8 @@ variable "task_definitions" {
       cpu                 : number
       memory              : number
       essential           : bool
-      port                : number
+      containerPort       : number
+      hostPort            : number
       healthCheck_retries : number
       healthCheck_interval: number
       healthcheck_timeout : number
