@@ -1,41 +1,48 @@
-variable "security_group_ids" {}
-
 variable "project" {
+  description = "The name of the project."
   type        = string
-  description = "Project name, for which resources are being provisonied."
 }
 
 variable "environment" {
+  description = "The environment (e.g., dev, staging, prod)."
   type        = string
-  description = "GSIC AWS environment type to deploy the resources to."
-
-  validation {
-    condition     = contains(["dev", "prod"], var.environment)
-    error_message = <<-EOT
-    GSIC AWS environment type to deploy the resources to.
-    Supported Values:
-      - dev
-      - prod
-    EOT
-  }
 }
 
-variable "default_tags" {
-  type        = map(string)
-  description = "Default tags you would like mapped to all resources created by this module."
+variable "alb_name" {
+  description = "Name for the Application Load Balancer."
+  type        = string
 }
 
 variable "subnet_ids" {
+  description = "List of subnet IDs for the Application Load Balancer."
   type        = list(string)
-  description = "List of subnets for the Service."
 }
 
-variable "vpc_id" {}
-variable "alb_name" {}
-variable "target_group_port" {
-  default = 80
+variable "security_group_ids" {
+  description = "List of security group IDs for the Application Load Balancer."
+  type        = list(string)
 }
-variable "health_check" {}
-variable "alb_paths" {
-  default = "/"
+
+variable "vpc_id" {
+  description = "VPC ID where resources will be deployed."
+  type        = string
+}
+
+variable "target_groups" {
+  description = "List of target group configurations."
+  type = list(object({
+    port                : number
+    health_check        : object({
+      enabled             : bool
+      healthy_threshold   : number
+      path                : string
+      interval            : number
+      matcher             : string
+      port                : number
+      protocol            : string
+      timeout             : number
+      unhealthy_threshold : number
+    })
+  }))
+  default = []
 }
