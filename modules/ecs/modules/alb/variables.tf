@@ -13,6 +13,12 @@ variable "alb_name" {
   type        = string
 }
 
+variable "internal_alb" {
+  description = "Internal or public facing ALB"
+  type        = bool
+  default     = true
+}
+
 variable "subnet_ids" {
   description = "List of subnet IDs for the Application Load Balancer."
   type        = list(string)
