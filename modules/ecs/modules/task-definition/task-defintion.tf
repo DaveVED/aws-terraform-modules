@@ -34,5 +34,6 @@ resource "aws_ecs_task_definition" "ecs" {
       startPeriod = cd.healthcheck_startperiod
       command     = cd.command
     }
+    environment = cd.environment_vars
   }])
 }

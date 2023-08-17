@@ -21,6 +21,7 @@ variable "task_definitions" {
       healthcheck_timeout : number
       healthcheck_startperiod: number
       command             : list(string)
+      environment_vars    : list(any)
     }))
   }))
 
