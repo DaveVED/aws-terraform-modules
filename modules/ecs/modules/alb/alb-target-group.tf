@@ -4,7 +4,7 @@ resource "aws_lb_target_group" "target_group" {
   # Derive a name from the target group's properties for idempotency
   name = "${var.project}-${var.environment}-${var.alb_name}-${each.value.port}-tg"
   port        = each.value.port
-  protocol    = "HTTP"
+  protocol    = "HTTPS"
   target_type = "ip"
   vpc_id      = var.vpc_id
 
