@@ -52,3 +52,9 @@ variable "target_groups" {
   }))
   default = []
 }
+
+variable "cert_arn" {
+  type = string
+  description = "ALB Listiner Cert ARN."
+  default = null
+}
