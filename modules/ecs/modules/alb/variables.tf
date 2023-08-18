@@ -37,16 +37,16 @@ variable "vpc_id" {
 variable "target_groups" {
   description = "List of target group configurations."
   type = list(object({
-    port                : number
-    health_check        : object({
-      enabled             : bool
-      healthy_threshold   : number
-      path                : string
-      interval            : number
-      matcher             : string
-      port                : number
-      protocol            : string
-      timeout             : number
+    port : number
+    health_check : object({
+      enabled : bool
+      healthy_threshold : number
+      path : string
+      interval : number
+      matcher : string
+      port : number
+      protocol : string
+      timeout : number
       unhealthy_threshold : number
     })
   }))
@@ -54,7 +54,7 @@ variable "target_groups" {
 }
 
 variable "cert_arn" {
-  type = string
+  type        = string
   description = "ALB Listiner Cert ARN."
-  default = null
+  default     = null
 }

@@ -14,7 +14,7 @@ output "task_definitions_info" {
     for td in aws_ecs_task_definition.ecs : {
       arn    = td.arn
       family = td.family
-      port   = try(td.container_definitions[0].portMappings[0].containerPort, null)  # Assumes only one container definition per task
+      port   = try(td.container_definitions[0].portMappings[0].containerPort, null) # Assumes only one container definition per task
     }
   ]
 }
