@@ -41,6 +41,6 @@ data "aws_iam_policy_document" "kms_policy" {
 }
 
 resource "aws_kms_alias" "alias" {
-  name          = "alias/${var.project}/ecs"
+  name          = "alias/${var.project}/ecs-cluster"
   target_key_id = aws_kms_key.key.arn
 }
